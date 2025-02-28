@@ -73,19 +73,30 @@
         button:hover {
             background: #218838;
         }
+        .mute-button {
+            background-color: #dc3545;
+        }
+        .mute-button:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
-<body>
+<body onload="fetchMuteStatus()">
     <div class="chat-container">
         <h2>AI Interview Bot</h2>
         <div id="chat"></div>
+
         <div class="input-container">
             <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleKeyPress(event)">
             <button onclick="sendMessage()">Send</button>
+            <button onclick="startSpeechRecognition()">🎤</button>
+            <button onclick="toggleMute()" id="muteButton" class="mute-button">🔊 Mute</button>
         </div>
     </div>
 
     <script>
+        let isMuted = false;
+
         function handleKeyPress(event) {
             if (event.key === "Enter") {
                 sendMessage();
@@ -113,6 +124,40 @@
 
             chatDiv.innerHTML += `<p class="bot-message"><b>Bot:</b> ${formattedResponse}</p>`;
             chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+
+        function startSpeechRecognition() {
+            let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = "en-US";
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                let transcript = event.results[0][0].transcript;
+                document.getElementById("userInput").value = transcript;
+                sendMessage();  // Automatically send message after speech
+            };
+
+            recognition.onerror = function(event) {
+                console.error("Speech recognition error:", event.error);
+            };
+        }
+
+        async function toggleMute() {
+            let response = await fetch("/toggle_mute", { method: "POST" });
+            let result = await response.json();
+            isMuted = result.mute;
+
+            let muteButton = document.getElementById("muteButton");
+            muteButton.textContent = isMuted ? "🔇 Unmute" : "🔊 Mute";
+        }
+
+        async function fetchMuteStatus() {
+            let response = await fetch("/get_mute_status");
+            let result = await response.json();
+            isMuted = result.mute;
+
+            let muteButton = document.getElementById("muteButton");
+            muteButton.textContent = isMuted ? "🔇 Unmute" : "🔊 Mute";
         }
     </script>
 </body>
