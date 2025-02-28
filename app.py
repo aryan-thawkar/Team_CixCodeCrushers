@@ -24,6 +24,14 @@ def speak_text(text):
 def index():
     return render_template("index.html")
 
+@app.route("/code")
+def code():
+    return render_template("code.html")
+
+@app.route("/vid")
+def vid():
+    return render_template("vid.html")
+
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.json
