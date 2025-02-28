@@ -6,78 +6,139 @@
     <title>AI Interview Bot</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            
+            background-image: url('https://img.freepik.com/free-vector/network-connection-background-gradient_23-2148879893.jpg?ga=GA1.1.1218812629.1739657550&semt=ais_hybrid');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin: 20px;
+        }
+        .chat-container{
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
         }
-        .chat-container {
-            width: 40%;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+
+        body h2 {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 40px;
+            color: aliceblue;
+            margin-top: 100px;
         }
-        h2 {
-            text-align: center;
-            color: #333;
+
+        form {
+            padding: 15px;
+            border-radius: 20px;
+            background-color: rgba(4, 142, 39, 0.449);
         }
-        #chat {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            height: 300px;
-            overflow-y: auto;
-            background: #fafafa;
-        }
-        .user-message, .bot-message {
-            max-width: 80%;
-            padding: 8px 12px;
-            border-radius: 10px;
-            margin: 5px 0;
-            word-wrap: break-word;
-            display: inline-block;
-        }
-        .user-message {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            align-self: flex-end;
-        }
-        .bot-message {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .input-container {
-            display: flex;
-            margin-top: 10px;
-        }
+
         input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            outline: none;
+            padding: 7px;
+            border: solid 2px black;
+            font-size: 20px;
+            border-radius: 7px;
+            width: 500px;
         }
+
         button {
-            padding: 10px 15px;
-            border: none;
-            background: #28a745;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 5px;
+            position: relative;
+            padding: 10px 20px;
+            border-radius: 7px;
+            border: 1px solid rgb(61, 106, 255);
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 2px;
+            background: transparent;
+            color: #fff;
+            overflow: hidden;
+            box-shadow: 0 0 0 0 transparent;
+            -webkit-transition: all 0.2s ease-in;
+            -moz-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
         }
+
         button:hover {
-            background: #218838;
+            background: rgb(61, 106, 255);
+            box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+            -webkit-transition: all 0.2s ease-out;
+            -moz-transition: all 0.2s ease-out;
+            transition: all 0.2s ease-out;
         }
-        .mute-button {
-            background-color: #dc3545;
+
+        button:hover::before {
+            -webkit-animation: sh02 0.5s 0s linear;
+            -moz-animation: sh02 0.5s 0s linear;
+            animation: sh02 0.5s 0s linear;
         }
-        .mute-button:hover {
-            background-color: #c82333;
+
+        button::before {
+            content: '';
+            display: block;
+            width: 0px;
+            height: 86%;
+            position: absolute;
+            top: 7%;
+            left: 0%;
+            opacity: 0;
+            background: #fff;
+            box-shadow: 0 0 50px 30px #fff;
+            -webkit-transform: skewX(-20deg);
+            -moz-transform: skewX(-20deg);
+            -ms-transform: skewX(-20deg);
+            -o-transform: skewX(-20deg);
+            transform: skewX(-20deg);
+        }
+
+        @keyframes sh02 {
+            from {
+                opacity: 0;
+                left: 0%;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                left: 100%;
+            }
+        }
+
+        button:active {
+            box-shadow: 0 0 0 0 transparent;
+            -webkit-transition: box-shadow 0.2s ease-in;
+            -moz-transition: box-shadow 0.2s ease-in;
+            transition: box-shadow 0.2s ease-in;
+        }
+
+        #chat {
+            background-color: rgba(255, 255, 255, 0.155);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ce66d4;
+            border-radius: 20px;
+            padding: 10px;
+            width: 50%;
+            height: 400px;
+            overflow-y: auto;
+        }
+
+        .user-message {
+            font-size: 20px;
+            float: right;
+            font-weight: bold;
+            color: rgb(173, 19, 187);
+        }
+
+        .bot-message {
+            font-size: 20px;
+            font-weight: bold;
+            color: rgb(75, 122, 75);
         }
     </style>
 </head>

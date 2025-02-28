@@ -54,5 +54,5 @@ def get_mute_status():
     """Returns the current mute state."""
     return jsonify({"mute": mute})
 
-if __name__ == "__main__":
+if __name__ == "__main__":  
     app.run(debug=True)
