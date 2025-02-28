@@ -22,10 +22,28 @@
         }
 
         body h2 {
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             font-size: 40px;
             color: aliceblue;
             margin-top: 100px;
+        }
+
+        .mockmate{
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            font-size: 50px;
+            
+            padding: 0;
+            color:white ;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .mockmate h1{
+            margin: 0;
+        }
+        .chat-container h2{
+            margin-top: 0;
         }
 
         form {
@@ -116,7 +134,7 @@
         }
 
         #chat {
-            background-color: rgba(255, 255, 255, 0.155);
+            background-color: rgba(255, 255, 255, 0.373);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin-top: 20px;
             margin-bottom: 20px;
@@ -138,7 +156,7 @@
         .bot-message {
             font-size: 20px;
             font-weight: bold;
-            color: rgb(75, 122, 75);
+            color: rgb(255, 255, 255);
         }
 
         /* ---------------------------------------------------------------------------- */
@@ -186,11 +204,14 @@
 </head>
 <body onload="fetchMuteStatus()">
     <nav class="navbar">
-        <a href="#">Home</a>
+        <a href="/">Home</a>
         <a href="/vid">Prepare vids</a>
         <a href="/code">Practice Problems</a>
-        <a href="#">Resume Analyser</a>
+        <a href="/resume">Resume Analyser</a>
     </nav>
+    <div class="mockmate">
+    <h1>MockMate</h1>
+    </div>
     <div class="chat-container">
         <h2>AI Interview Bot</h2>
         <div id="chat"></div>

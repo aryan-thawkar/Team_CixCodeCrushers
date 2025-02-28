@@ -28,6 +28,9 @@ def index():
 def code():
     return render_template("code.html")
 
+@app.route("/resume")
+def resume():
+    return render_template("resume.html")
 @app.route("/vid")
 def vid():
     return render_template("vid.html")
