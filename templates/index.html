@@ -3,45 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot</title>
+    <title>AI Interview Bot</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 40%;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
         }
         #chat {
-            margin-top: 20px;
             border: 1px solid #ccc;
+            border-radius: 5px;
             padding: 10px;
-            width: 50%;
             height: 300px;
             overflow-y: auto;
+            background: #fafafa;
+        }
+        .user-message, .bot-message {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 10px;
+            margin: 5px 0;
+            word-wrap: break-word;
+            display: inline-block;
         }
         .user-message {
-            float: right;
-            font-weight: bold;
-            color: rgb(86, 86, 93);
+            background-color: #d1ecf1;
+            color: #0c5460;
+            align-self: flex-end;
         }
         .bot-message {
-            font-weight: bold;
-            color: rgb(75, 122, 75);
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .input-container {
+            display: flex;
+            margin-top: 10px;
+        }
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            background: #28a745;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        button:hover {
+            background: #218838;
         }
     </style>
 </head>
 <body>
-    <h2>AI interview prep bot</h2>
-    <div>
-        <input type="text" id="userInput" placeholder="Ask a question...">
-        <button onclick="sendMessage()">Send</button>
+    <div class="chat-container">
+        <h2>AI Interview Bot</h2>
+        <div id="chat"></div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
     </div>
-    <div id="chat"></div>
 
     <script>
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+
         async function sendMessage() {
             let userInput = document.getElementById("userInput").value;
             let chatDiv = document.getElementById("chat");
 
+            if (!userInput.trim()) return;
+
             chatDiv.innerHTML += `<p class="user-message"><b>You:</b> ${userInput}</p>`;
+            document.getElementById("userInput").value = "";
+            chatDiv.scrollTop = chatDiv.scrollHeight;
 
             let response = await fetch("/chat", {
                 method: "POST",
@@ -50,9 +109,10 @@
             });
 
             let result = await response.json();
-            let formattedResponse = result.response.replace(/\n/g, "<br>"); // Ensure line breaks render
+            let formattedResponse = result.response.replace(/\n/g, "<br>");
 
             chatDiv.innerHTML += `<p class="bot-message"><b>Bot:</b> ${formattedResponse}</p>`;
+            chatDiv.scrollTop = chatDiv.scrollHeight;
         }
     </script>
 </body>
