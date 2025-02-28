@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #chat {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 50%;
+            height: 300px;
+            overflow-y: auto;
+        }
+        .user-message {
+            float: right;
+            font-weight: bold;
+            color: rgb(86, 86, 93);
+        }
+        .bot-message {
+            font-weight: bold;
+            color: rgb(75, 122, 75);
+        }
+    </style>
+</head>
+<body>
+    <h2>AI interview prep bot</h2>
+    <div>
+        <input type="text" id="userInput" placeholder="Ask a question...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <div id="chat"></div>
+
+    <script>
+        async function sendMessage() {
+            let userInput = document.getElementById("userInput").value;
+            let chatDiv = document.getElementById("chat");
+
+            chatDiv.innerHTML += `<p class="user-message"><b>You:</b> ${userInput}</p>`;
+
+            let response = await fetch("/chat", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({message: userInput})
+            });
+
+            let result = await response.json();
+            let formattedResponse = result.response.replace(/\n/g, "<br>"); // Ensure line breaks render
+
+            chatDiv.innerHTML += `<p class="bot-message"><b>Bot:</b> ${formattedResponse}</p>`;
+        }
+    </script>
+</body>
+</html>
