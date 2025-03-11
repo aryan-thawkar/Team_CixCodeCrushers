@@ -1,0 +1,6 @@
+Flask
+ollama
+pyttsx3
+pdfminer.six
+python-docx
+werkzeug
